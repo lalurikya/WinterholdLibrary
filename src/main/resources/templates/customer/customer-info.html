@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div th:fragment="infoDialog" class="popup-dialog info-dialog">
+        <table>
+            <tbody>
+                <tr>
+                    <td>Membership Number</td>
+                    <td class="membershipNumber"></td>
+                </tr>
+                <tr>
+                    <td>Full Name</td>
+                    <td class="fullName"></td>
+                </tr>
+                <tr>
+                    <td>Birth Date</td>
+                    <td class="birthDate"></td>
+                </tr>
+                <tr>
+                    <td>Gender</td>
+                    <td class="gender"></td>
+                </tr>
+                <tr>
+                    <td>Phone</td>
+                    <td class="phone"></td>
+                </tr>
+                <tr>
+                    <td>Address</td>
+                    <td class="address"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <a href="javascript:;" class="close-button blue-button">Close</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

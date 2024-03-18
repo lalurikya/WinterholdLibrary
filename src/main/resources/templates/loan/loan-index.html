@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head}"></head>
+<body class="main-body">
+<th:block th:replace="~{layout :: template('Loan Index')}"></th:block>
+<main>
+    <div class="grid-container loan">
+        <form class="filter" method="get" th:action="@{/loan/index}">
+            <input type="text" placeholder="Book Title..." name="title" th:value="${bookTitle}">
+            <input type="text" placeholder="Customer Name..." name="customer" th:value="${customerName}">
+            <button type="submit" class="blue-button">Search</button>
+        </form>
+        <a th:href="@{/loan/upsertForm}" class="blue-button create-button">New Loan</a>
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Book Title</th>
+                    <th>Customer Name</th>
+                    <th>Loan Date</th>
+                    <th>Due Date</th>
+                    <th>Return Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr th:each="row : ${grid}" th:object="${row}">
+                <td>
+                    <!--                    <a class="blue-button" th:href="@{/author/detail(id=*{id})}">Detail</a>-->
+                    <!--                    <a class="blue-button" th:href="@{/author/upsertForm(id=*{id})}">Edit</a>-->
+                    <a class="blue-button extend-button" th:href="@{/loan/return(id=*{id})}">Return</a>
+                </td>
+                <td th:text="*{bookTitle}"></td>
+                <td th:text="*{customerName}"></td>
+                <td th:text="*{#temporals.format(loanDate, 'dd/MM/yyyy')}"></td>
+                <td th:text="*{#temporals.format(dueDate, 'dd/MM/yyyy')}"></td>
+                <td th:text="*{#temporals.format(returnDate, 'dd/MM/yyyy')}"></td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="6">
+                    <div class="pagination">
+                        <div th:text="|page ${currentPage} of ${totalPages}|"></div>
+                        <div th:if="${totalPages != 0}">
+                            <a th:each="number : ${#numbers.sequence(1,totalPages)}"
+                               th:text="${number}"
+                               th:href="@{/loan/index(page=${number}, title=${bookTitle}, customer=${customerName})}"></a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+</main>
+
+</body>
+</html>

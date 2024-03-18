@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div th:fragment="deleteDialog" class="popup-dialog delete-dialog">
+        <p>Ada <span th:text="${depedencies}"></span> Book yang ditemukan masih termasuk ke dalam Category ini.</p>
+        <p>Anda tidak bisa menghapus Category ini selama data Books itu masih berada di dalam database.</p>
+        <p>Silahkan contact IT department untuk penjelasan lebih detail.</p>
+    </div>
+</body>
+</html>

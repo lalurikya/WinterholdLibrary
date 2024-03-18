@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="formDialog" class="popup-dialog form-dialog">
+    <form>
+        <table>
+            <tbody>
+            <tr>
+                <td>Category Name*</td>
+                <td>
+                    <input type="text" class="name">
+                    <div class="validation-message" data-for="name"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>Floor*</td>
+                <td>
+                    <input type="text" class="floor">
+                    <div class="validation-message" data-for="floor"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>Isle*</td>
+                <td>
+                    <input type="text" class="isle">
+                    <div class="validation-message" data-for="isle"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>Bay*</td>
+                <td>
+                    <input type="text" class="bay">
+                    <div class="validation-message" data-for="bay"></div>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <button type="submit" class="blue-button">Submit</button>
+                    <a href="javascript:;" class="close-button blue-button">Close</a>
+                </td>
+            </tr>
+        </table>
+
+    </form>
+</div>
+</body>
+</html>

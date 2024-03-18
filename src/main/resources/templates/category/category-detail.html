@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head}"></head>
+<body class="main-body">
+<th:block th:replace="~{layout :: template('Book By Category')}"></th:block>
+<main>
+    <div class="grid-container">
+        <div>
+            <a class="blue-button back-button" th:href="@{/category/index}">Back to Category</a>
+            <form method="get" class="filter" th:action="@{/category/detail}">
+                <input type="hidden" name="name" th:value="${name}">
+                <input type="text" name="title" placeholder="Book Name..." th:value="${title}">
+                <input type="text" name="authorName" placeholder="Author Name..." th:value="${authorName}">
+                <button class="blue-button" type="submit">Search</button>
+            </form>
+        </div>
+        <section class="header-info">
+            <div>List of <span th:text="${category.name}"></span> Books</div>
+        </section>
+        <a th:href="@{/category/upsertDetailForm(categoryName=${category.name})}" class="blue-button create-button">Add New <span th:text="${category.name}"></span> Book</a>
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Book Title</th>
+                    <th>Author</th>
+                    <th>Is Borrowed</th>
+                    <th>Release Date</th>
+                    <th>Total Page</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="row : ${grid}" th:object="${row}">
+                    <td>
+                        <a class="blue-button summary-button" th:if="*{summary != ''}" th:attr="data-code=*{code}" href="javascript:;">Summary</a>
+                        <a class="blue-button" th:href="@{/category/upsertDetailForm(categoryName=${category.name}, code=*{code})}">Update</a>
+                        <a class="blue-button" th:href="@{/category/deleteDetail(name=${category.name}, code=*{code})}">Delete</a>
+                    </td>
+                    <td th:text="*{title}"></td>
+                    <td th:text="*{authorName}"></td>
+                    <td th:text="*{isBorrowed}  ? 'Borrowed' : 'Available'"></td>
+                    <td th:text="*{#temporals.format(releaseDate, 'dd/MM/yyyy')}"></td>
+                    <td th:text="*{totalPage}"></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="6">
+                        <div class="pagination">
+                            <div th:text="|page ${currentPage} of ${totalPages}|"></div>
+                            <div th:if="${totalPages != 0}">
+                                <a th:each="number : ${#numbers.sequence(1,totalPages)}"
+                                   th:text="${number}"
+                                   th:href="@{/category/detail(name=${category.name}, authorName=${authorName}, title=${title}, available=${available}, page=${number})}"></a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</main>
+<div class="modal-layer">
+    <th:block th:replace="~{category/category-detail-info :: summaryDialog}"></th:block>
+</div>
+</body>
+<script th:src="@{/resources/js/category/category-detail-popup.js}"></script>
+</html>

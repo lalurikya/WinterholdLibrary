@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head}"></head>
+<body class="main-body">
+<th:block th:replace="~{layout :: template('Customer Index')}"></th:block>
+<main>
+    <div class="grid-container">
+        <form class="filter" method="get" th:action="@{/customer/index}">
+            <input type="text" placeholder="Membership Number..." name="membershipNumber" th:value="${membershipNumber}">
+            <input type="text" placeholder="Customer Name..." name="name" th:value="${name}">
+            <button type="submit" class="blue-button">Search</button>
+        </form>
+        <a th:href="@{/customer/upsertForm}" class="blue-button create-button">Insert New Customer</a>
+        <table>
+            <thead>
+            <tr>
+                <th></th>
+                <th>Membership Number</th>
+                <th>Full Name</th>
+                <th>Expire Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="row : ${grid}" th:object="${row}">
+                <td>
+                    <a class="blue-button update-button" th:href="@{/customer/upsertForm(membershipNumber=*{membershipNumber})}">Edit</a>
+                    <a class="blue-button delete-button" th:href="@{/customer/delete(membershipNumber=*{membershipNumber})}">Delete</a>
+                    <a class="blue-button extend-button" th:href="@{/customer/extend(number=*{membershipNumber})}">Extend</a>
+                </td>
+                <td>
+                    <a href="javascript:;" th:text="*{membershipNumber}" class="membership-number info-button" th:attr="data-membershipNumber=*{membershipNumber}"></a>
+                </td>
+                <td th:text="*{fullName}"></td>
+                <td th:text="*{expireDate}"></td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="4">
+                    <div class="pagination">
+                        <div th:text="|page ${currentPage} of ${totalPages}|"></div>
+                        <div th:if="${totalPages != 0}">
+                            <a th:each="number : ${#numbers.sequence(1,totalPages)}"
+                               th:text="${number}"
+                               th:href="@{/customer/index(page=${number}, name=${name}, membershipNumber=${membershipNumber})}"></a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+</main>
+<div class="modal-layer">
+    <th:block th:replace="~{customer/customer-info :: infoDialog}"></th:block>
+</div>
+</body>
+<script th:src="@{/resources/js/customer/customer-popup.js}"></script>
+</html>

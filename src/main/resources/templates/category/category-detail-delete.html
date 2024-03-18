@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head}"></head>
+<body class="main-body">
+<th:block th:replace="~{layout :: template('Fail To Delete Book')}"></th:block>
+<main>
+    <div class="fail-container">
+        <p>Ada <span th:text="${depedencies}"></span> Loan yang ditemukan masih termasuk ke dalam Book ini.</p>
+        <p>Anda tidak bisa menghapus Book ini selama data Loans itu masih berada di dalam database.</p>
+        <p>Silahkan contact IT department untuk penjelasan lebih detail.</p>
+    </div>
+    <a class="blue-button" th:href="@{/category/index}">Back to Index</a>
+</main>
+</body>
+</html>

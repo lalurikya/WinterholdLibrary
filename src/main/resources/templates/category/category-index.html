@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head}"></head>
+<body class="main-body">
+<th:block th:replace="~{layout :: template('Book Index')}"></th:block>
+<main>
+    <div class="grid-container author-index">
+        <form class="filter" method="get" th:action="@{/category/index}">
+            <input type="text" placeholder="Category Name..." name="name" th:value="${name}">
+            <button type="submit" class="blue-button">Search</button>
+        </form>
+        <a th:href="@{/category/upsertForm}" class="blue-button create-button">Add New Category</a>
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Category</th>
+                    <th>Floor</th>
+                    <th>Isle</th>
+                    <th>Bay</th>
+                    <th>Total Books</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="row : ${grid}" th:object="${row}">
+                    <td>
+                        <a class="blue-button detail-button" th:href="@{/category/detail(name=*{name})}">Books</a>
+                        <a class="blue-button update-button" href="javascript:;" th:attr="data-name=*{name}">Edit</a>
+                        <a class="blue-button delete-button" th:href="@{/category/delete(name=*{name})}">Delete</a>
+                    </td>
+                    <td th:text="*{name}"></td>
+                    <td th:text="*{floor}"></td>
+                    <td th:text="*{isle}"></td>
+                    <td th:text="*{bay}"></td>
+                    <td th:text="*{totalBooks}"></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="6">
+                        <div class="pagination">
+                            <div th:text="|page ${currentPage} of ${totalPages}|"></div>
+                            <div th:if="${totalPages != 0}">
+                                <a th:each="number : ${#numbers.sequence(1,totalPages)}"
+                                   th:text="${number}"
+                                   th:href="@{/category/index(page=${number}, name=${name})}"></a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</main>
+<div class="modal-layer">
+    <th:block th:replace="~{category/category-popup-form :: formDialog}"></th:block>
+
+</div>
+</body>
+<script th:src="@{/resources/js/category/category-popup.js}"></script>
+</html>

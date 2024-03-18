@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head}"></head>
+<body class="main-body">
+
+<th:block th:replace="~{layout :: template('Loan Form')}"></th:block>
+<main>
+    <form class="upsert-form" method="post" th:action="@{/loan/upsert}" th:object="${dto}">
+        <table>
+            <tbody>
+            <input type="hidden" th:field="*{id}">
+            <input type="hidden" th:field="*{returnDate}">
+            <input type="hidden" th:field="*{dueDate}">
+            <tr>
+                <td>
+                    <label>Customer*</label>
+                </td>
+                <td>
+                    <select th:field="*{customerNumber}" name="customerId">
+                        <option th:value=null>Select Customer</option>
+                        <option th:each="option: ${customerDropdown}"
+                                th:value="${option.value}"
+                                th:text="${option.textContent}">
+                        </option>
+                    </select>
+                    <div class="field-validation-error" th:errors="*{customerNumber}"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Book*</label>
+                </td>
+                <td>
+                    <select th:field="*{bookCode}" name="bookCode">
+                        <option th:value=null>Select Book</option>
+                        <option th:each="option: ${bookDropdown}"
+                                th:value="${option.value}"
+                                th:text="${option.textContent}">
+                        </option>
+                    </select>
+                    <div class="field-validation-error" th:errors="*{bookCode}"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Loan Date*</label>
+                </td>
+                <td>
+                    <input type="date" th:field="*{loanDate}">
+                    <div class="field-validation-error" th:errors="*{loanDate}"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Note</label>
+                </td>
+                <td>
+                    <textarea th:field="*{note}"></textarea>
+                    <div class="field-validation-error" th:errors="*{note}"></div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <button type="submit" class="blue-button">Submit</button>
+        <a th:href="@{/loan/index}" class="blue-button">Back to Index</a>
+    </form>
+</main>
+</body>
+</html>

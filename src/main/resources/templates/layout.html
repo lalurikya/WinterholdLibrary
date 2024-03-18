@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Winterhold</title>
+    <link rel="icon" type="image/ico" th:href="@{/favicon.ico}">
+    <link rel="stylesheet" th:href="@{/resources/css/normalize.css}">
+    <link rel="stylesheet" th:href="@{/resources/css/font-awesome.css}">
+    <link rel="stylesheet" th:href="@{/resources/css/site.css}">
+<!--    <link rel="stylesheet" th:href="@{/resources/css/authorization.css}">-->
+    <script th:src="@{/resources/js/jquery-3.6.0.js}"></script>
+    <script th:src="@{/resources/js/site.js}" defer></script>
+</head>
+<body>
+    <th:block th:fragment="template(breadCrumbs)">
+        <header>
+            <nav>
+                <a class="menu" th:href="@{/home/index}">
+                    <span>Home</span>
+                </a>
+                <a class="menu" th:href="@{/author/index}">
+                    <span>Authors</span>
+                </a>
+                <a class="menu" th:href="@{/category/index}">
+                    <span>Books</span>
+                </a>
+                <a class="menu" th:href="@{/customer/index}">
+                    <span>Customers</span>
+                </a>
+                <a class="menu" th:href="@{/loan/index}">
+                    <span>Loan</span>
+                </a>
+            </nav>
+        </header>
+    </th:block>
+</body>
+</html>
